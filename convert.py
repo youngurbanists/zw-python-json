@@ -4,6 +4,7 @@ import json
 import os
 from typing import List
 from pathlib import Path
+import shutil
 from pydantic import BaseModel, ConfigDict
 
 class Coordinates(BaseModel):
@@ -172,6 +173,16 @@ if __name__ == "__main__":
     output_dir = Path("_site")
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
+
+    # OpenApi
+    api_file = Path('openapi.yaml')
+    to_file = output_dir / 'openapi.yaml'
+    shutil.copy(str(api_file), str(to_file))
+
+    # Index
+    index_file = Path('index.html')
+    to_file = output_dir / 'index.html'
+    shutil.copy(str(index_file), str(to_file))
 
     suburbs = read_suburbs_from_csv("suburbs.csv")
     crossings = read_crossings_from_csv("crossings.csv")

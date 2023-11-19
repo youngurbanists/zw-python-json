@@ -1,0 +1,253 @@
+openapi: 3.0.0
+info:
+  version: '0.1'
+  title: ''
+  description: Get usability and safety details for pedestrian crossings in Cape Town
+paths:
+  /suburbs.json:
+    get:
+      summary: Get all suburbs
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Suburb'
+  '/suburbs/{suburbId}.json':
+    get:
+      summary: Get Suburb details and all crossings in a suburb
+      parameters:
+        - name: suburbId
+          in: path
+          description: ID of suburb
+          required: true
+          schema:
+            type: string
+            example: claremont
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  suburb:
+                    $ref: '#/components/schemas/Suburb'
+                  crossings:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Crossing'
+        '404':
+            description: Suburb not found
+  '/crossings.json':
+    get:
+      summary: Get all crossings
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Crossing'
+  '/crossings/{crossingId}.json':
+    get:
+      summary: Get a crossing
+      parameters:
+        - name: crossingId
+          in: path
+          description: ID of crossing to return
+          required: true
+          schema:
+            type: string
+            example: claremont_protea_mark
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Crossing'
+        '404':
+            description: Crossing not found
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/ROBKET_1/ZeroWait/0.1
+components:
+  schemas:
+    Suburb:
+      type: object
+      description: Details for a Suburb
+      required:
+        - name
+        - vectorUrl
+        - numberOfCrossings
+        - overallRating
+        - boundingBox
+      properties:
+        id:
+          type: string
+          example: claremont
+        name:
+          type: string
+          example: Claremont
+        vectorUrl:
+          type: string
+          example: '/static/vectors/claremont_outline.svg'
+        numberOfCrossings:
+          type: integer
+          example: 8
+        overallRating:
+          type: string
+          enum: [good, okay, bad]
+          example: good
+        boundingBox:
+          type: object
+          required:
+            - southWest
+            - northEast
+          properties:
+            southWest:
+              $ref: '#/components/schemas/Coordinates'
+            northEast:
+              $ref: '#/components/schemas/Coordinates'
+    Crossing:
+      type: object
+      description: Details for a Pedestrian crossing
+      required:
+        - id
+        - coordinates
+        - responsiveness
+        - safety
+      properties:
+        id:
+          type: string
+          example: claremont_protea_mark
+        humanReadableLocation:
+          type: object
+          properties:
+            suburb:
+              type: string
+              example: Claremont
+            crossingStreet:
+              type: string
+              example: Protea Road
+            nearbyStreets:
+              type: array
+              items:
+                type: string
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+        responsiveness:
+          type: object
+          required:
+            - rating
+            - categories
+          properties:
+            rating:
+              type: string
+              enum: [good, okay, bad]
+              example: okay
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Category'
+              minItems: 1
+              maxItems: 6
+            score:
+              deprecated: true
+              type: integer
+              minimum: 0
+            maximumScore:
+              deprecated: true
+              type: integer
+              example: 100
+        safety:
+          type: object
+          required:
+            - rating
+            - categories
+          properties:
+            rating:
+              type: string
+              enum: [good, okay, bad]
+              example: bad
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Category'
+              minItems: 1
+              maxItems: 6
+            score:
+              deprecated: true
+              type: integer
+              minimum: 0
+            maximumScore:
+              deprecated: true
+              type: integer
+              example: 100
+        photoUrls:
+          type: array
+          xml:
+            name: photoUrl
+            wrapped: true
+          items:
+            type: string
+    Coordinates:
+      type: object
+      required:
+        - latitude
+        - longitude
+      properties:
+        latitude:
+          type: number
+          format: float
+          example: -33.98025801746795
+        longitude:
+          type: number
+          format: float
+          example: 18.460228112106247
+    Category:
+      type: object
+      required:
+        - name
+        - rating
+      properties:
+        name:
+          type: string
+          example: Traffic calming
+          minLength: 2
+          maxLength: 32
+        longDescription:
+          type: string
+          example: >
+            Traffic calming includes speed bumps,
+            chicanes, and road narrowing.
+        rating:
+          type: string
+          enum: [good, okay, bad]
+          example: bad
+        notes:
+          type: string
+          example: >
+            No traffic calming at all.
+        emoji:
+          deprecated: true
+          type: string
+          minLength: 1
+          maxLength: 1
+          example: ✅
+        score:
+          deprecated: true
+          type: integer
+          example: 20
+        maximumScore:
+          deprecated: true
+          type: integer
+          example: 25
