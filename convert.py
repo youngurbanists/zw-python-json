@@ -169,7 +169,7 @@ def csv_to_json(input_file, output_dir):
                 outfile.write(json_data)
 
 if __name__ == "__main__":
-    output_dir = Path("json_files")
+    output_dir = Path("_site")
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
