@@ -114,13 +114,18 @@ def read_crossings_from_csv(csv_path) -> List[Crossing]:
                         "rating": row["shortWaitTime"],
                         "categories": [
                             {
-                                "name": "buttonsWork",
-                                "longDescription": "",
+                                "name": "Short Wait Time",
+                                "longDescription": "Does the crossing respond quickly after a pedestrian pushes the button, or are pedestrians sometimes required to wait for ages",
+                                "rating": row["shortWaitTime"],
+                            },
+                            {
+                                "name": "Buttons Work",
+                                "longDescription": "Do buttons on both ends work when pressed",
                                 "rating": row["buttonsWork"],
                             },
                             {
-                                "name": "crossingTime",
-                                "longDescription": "",
+                                "name": "Crossing Time",
+                                "longDescription": "Do pedestrians have enough time to cross the entire roadway comfortably",
                                 "rating": row["crossingTime"],
                             },
                         ],
@@ -129,18 +134,23 @@ def read_crossings_from_csv(csv_path) -> List[Crossing]:
                         "rating": row["trafficCalming"],
                         "categories": [
                             {
-                                "name": "visibility",
-                                "longDescription": "",
+                                "name": "Traffic Calming",
+                                "longDescription": "Is there physical infrastructure which encourages cars to slow down. Speed bumps, road narrowings, chicanes, etc.",
+                                "rating": row["trafficCalming"]
+                            },
+                            {
+                                "name": "Visibility",
+                                "longDescription": "Are pedestrians, and the crossing visible to motorists or do trees/parked cars obscure them",
                                 "rating": row["visibility"],
                             },
                             {
-                                "name": "signage",
-                                "longDescription": "",
+                                "name": "Signage",
+                                "longDescription": "Are there signs and paint warning motorists of the pedestrian crossing",
                                 "rating": row["signage"],
                             },
                             {
                                 "name": "accessibility",
-                                "longDescription": "",
+                                "longDescription": "Is it easy for everyone to cross here. Curb cuts, tactile paving, audible buttons.",
                                 "rating": row["accessibility"],
                             },
                         ],
@@ -154,35 +164,16 @@ def read_crossings_from_csv(csv_path) -> List[Crossing]:
                 print(f"Error processing row {index + 2}: {e}")
     return crossings
 
-def csv_to_json(input_file, output_dir):
-    with open(input_file, 'r') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            # Create a unique filename for each row
-            filename = f"{row['id']}.json"
-            output_path = os.path.join(output_dir, filename)
-
-            # Convert the row to a JSON object
-            json_data = json.dumps(row, indent=2)
-
-            # Write the JSON object to a file
-            with open(output_path, 'w') as outfile:
-                outfile.write(json_data)
-
-def build_api_v1():
-    output_dir = Path("_site/v1/")
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
+def build_api_v1(output_dir: Path):
+    api_dir = output_dir / "v1"
+    if not os.path.exists(api_dir):
+        os.makedirs(api_dir)
 
     # OpenApi
-    api_file = Path('openapi.yaml')
-    to_file = output_dir / 'openapi.yaml'
-    shutil.copy(str(api_file), str(to_file))
+    shutil.copy('openapi.yaml', api_dir / 'openapi.yaml')
 
     # Index
-    index_file = Path('index.html')
-    to_file = output_dir / 'index.html'
-    shutil.copy(str(index_file), str(to_file))
+    shutil.copy('index.html', api_dir / 'index.html')
 
     suburbs = read_suburbs_from_csv("suburbs.csv")
     crossings = read_crossings_from_csv("crossings.csv")
@@ -191,10 +182,10 @@ def build_api_v1():
         crossings_by_suburb[crossing.humanReadableLocation.suburb].append(crossing)
 
     # Suburbs
-    suburb_dir = output_dir / "suburbs"
+    suburb_dir = api_dir / "suburbs"
     suburb_dir.mkdir(parents=True, exist_ok=True)
     # Root suburbs json file
-    with (output_dir / "suburbs.json").open("w") as root_suburb_file:
+    with (api_dir / "suburbs.json").open("w") as root_suburb_file:
         json.dump([suburb.model_dump() for suburb in suburbs], root_suburb_file, indent=2)
 
     # Individual suburb jsons with all the stops
@@ -206,10 +197,10 @@ def build_api_v1():
                       }, suburb_file, indent=2)
 
     # Crossings
-    crossing_dir = output_dir / "crossings"
+    crossing_dir = api_dir / "crossings"
     crossing_dir.mkdir(parents=True, exist_ok=True)
     # Root crossings file
-    with (output_dir / "crossings.json").open("w") as root_crossing_file:
+    with (api_dir / "crossings.json").open("w") as root_crossing_file:
         json.dump([crossing.model_dump() for crossing in crossings], root_crossing_file, indent=2)
 
     # Individual crossing jsons
@@ -217,5 +208,13 @@ def build_api_v1():
         with (crossing_dir / f"{crossing.id}.json").open("w") as suburb_file:
             json.dump(crossing.model_dump(), suburb_file, indent=2)
 
+def copy_static_files(output_dir: Path):
+    shutil.copytree("static", str(output_dir / "static"))
+
 if __name__ == "__main__":
-    build_api_v1()
+    output_dir = Path("_site/")
+    if os.path.exists(output_dir):
+        shutil.rmtree(output_dir)
+    os.makedirs(output_dir)
+    copy_static_files(output_dir)
+    build_api_v1(output_dir)

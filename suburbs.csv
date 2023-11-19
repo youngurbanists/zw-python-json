@@ -1,9 +1,9 @@
 id,name,vectorUrl,numberOfCrossings,overallRating,southWestLng,southWestLat,northEastLng,northEastLat
-claremont,Claremont,,0,bad,18.451698,-33.992145,18.474701,-33.972075
-sea_point,Sea Point,,0,okay,18.372031,-33.928329,18.405363,-33.899909
-greenpoint,Greenpoint,,0,good,18.404247,-33.91907,18.428236,-33.898306
-cbd,City Center,,0,good,18.396921,-33.947754,18.436232,-33.913571
-woodstock,Woodstock,,7,bad,18.433601,-33.94099,18.456925,-33.919287
-salt_river,Salt River,,6,bad,18.449876,-33.938685,18.469403,-33.922661
-observatory,Observatory,,2,okay,18.458846,-33.945716,18.478372,-33.929302
-langa,Langa,,0,okay,18.517164,-33.955941,18.543085,-33.937678
+claremont,Claremont,https://youngurbanists.github.io/zw-python-json/static/vectors/claremont.svg,0,bad,18.451698,-33.992145,18.474701,-33.972075
+sea_point,Sea Point,https://youngurbanists.github.io/zw-python-json/static/vectors/sea-point.svg,0,okay,18.372031,-33.928329,18.405363,-33.899909
+greenpoint,Greenpoint,https://youngurbanists.github.io/zw-python-json/static/vectors/greenpoint.svg,0,good,18.404247,-33.91907,18.428236,-33.898306
+cbd,City Center,https://youngurbanists.github.io/zw-python-json/static/vectors/cbd.svg,0,good,18.396921,-33.947754,18.436232,-33.913571
+woodstock,Woodstock,https://youngurbanists.github.io/zw-python-json/static/vectors/woodstock.svg,7,bad,18.433601,-33.94099,18.456925,-33.919287
+salt_river,Salt River,https://youngurbanists.github.io/zw-python-json/static/vectors/salt-river.svg,6,bad,18.449876,-33.938685,18.469403,-33.922661
+observatory,Observatory,https://youngurbanists.github.io/zw-python-json/static/vectors/observatory.svg,2,okay,18.458846,-33.945716,18.478372,-33.929302
+langa,Langa,https://youngurbanists.github.io/zw-python-json/static/vectors/langa.svg,0,okay,18.517164,-33.955941,18.543085,-33.937678
