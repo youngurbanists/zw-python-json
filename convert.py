@@ -169,8 +169,8 @@ def csv_to_json(input_file, output_dir):
             with open(output_path, 'w') as outfile:
                 outfile.write(json_data)
 
-if __name__ == "__main__":
-    output_dir = Path("_site")
+def build_api_v1():
+    output_dir = Path("_site/v1/")
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
@@ -194,7 +194,7 @@ if __name__ == "__main__":
     suburb_dir = output_dir / "suburbs"
     suburb_dir.mkdir(parents=True, exist_ok=True)
     # Root suburbs json file
-    with (suburb_dir / "suburbs.json").open("w") as root_suburb_file:
+    with (output_dir / "suburbs.json").open("w") as root_suburb_file:
         json.dump([suburb.model_dump() for suburb in suburbs], root_suburb_file, indent=2)
 
     # Individual suburb jsons with all the stops
@@ -209,10 +209,13 @@ if __name__ == "__main__":
     crossing_dir = output_dir / "crossings"
     crossing_dir.mkdir(parents=True, exist_ok=True)
     # Root crossings file
-    with (crossing_dir / "crossings.json").open("w") as root_crossing_file:
+    with (output_dir / "crossings.json").open("w") as root_crossing_file:
         json.dump([crossing.model_dump() for crossing in crossings], root_crossing_file, indent=2)
 
     # Individual crossing jsons
     for crossing in crossings:
         with (crossing_dir / f"{crossing.id}.json").open("w") as suburb_file:
             json.dump(crossing.model_dump(), suburb_file, indent=2)
+
+if __name__ == "__main__":
+    build_api_v1()

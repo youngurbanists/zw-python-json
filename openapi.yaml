@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  version: '0.1'
-  title: ''
+  version: '1'
+  title: ZeroWait Static Backend Data
   description: Get usability and safety details for pedestrian crossings in Cape Town
 paths:
   /suburbs.json:
@@ -76,9 +76,9 @@ paths:
         '404':
             description: Crossing not found
 servers:
-  # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/ROBKET_1/ZeroWait/0.1
+  - description: Github Pages
+    url: |
+      https://youngurbanists.github.io/zw-python-json/v1/
 components:
   schemas:
     Suburb:
