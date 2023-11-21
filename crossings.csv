@@ -1,17 +1,17 @@
-id,suburb,crossingStreet,nearbyStreets,LatLng,lat,lng,waitTime1,waitTime2,shortWaitTime,buttonsWork,crossingTime,trafficCalming,visibility,signage,accessibility
-woodstock_albert_barron,woodstock,Albert,Barron,"-33.9263, 18.44278",-33.9263,18.44278,45,32,bad,good,good,bad,okay,good,good
-woodstock_albert_station,woodstock,Albert,Station,"-33.92644, 18.44617",-33.92644,18.44617,2,4,good,good,good,bad,good,good,good
-woodstock _sir_lowry_pine,woodstock ,Sir Lowry,Pine,"-33.92859, 18.44552",-33.92859,18.44552,22,33,bad,good,good,okay,good,bad,bad
-woodstock_sir_lowry_barron,woodstock,Sir Lowry,Barron,"-33.92792, 18.44221",-33.92792,18.44221,10,12,okay,good,bad,bad,okay,bad,bad
-woodstock_sir_lowry_cavendish,woodstock,Sir Lowry,Cavendish,"-33.9292, 18.44812",-33.9292,18.44812,38,7,bad,good,okay,bad,okay,okay,good
-woodstock_sir_lowry_dublin,woodstock,Sir Lowry,Dublin,"-33.93013, 18.45194",-33.93013,18.45194,24,33,bad,bad,good,good,okay,good,okay
-salt_river_station_regent,salt_river,Station,Regent,"-33.93014, 18.45698",-33.93014,18.45698,1,1,good,good,good,bad,okay,good,good
-woodstock_albert_treaty,woodstock,Albert,Treaty,"-33.9269, 18.45076",-33.9269,18.45076,17,24,bad,good,bad,bad,bad,good,good
-woodstock_albert_dublin,woodstock,Albert,Dublin,"-33.92719, 18.45314",-33.92719,18.45314,42,3,bad,good,okay,okay,okay,bad,okay
-salt_river_albert_greatmore,salt_river,Albert,Greatmore,"-33.92775, 18.45733",-33.92775,18.45733,20,16,bad,good,bad,good,okay,okay,okay
-salt_river_salt_river_regent,salt_river,Salt River,Regent,"-33.93014, 18.45698",-33.93014,18.45698,30,54,bad,good,bad,bad,bad,good,good
-salt_river_durham_addison,salt_river,Durham,Addison,"-33.93139, 18.46002",-33.93139,18.46002,42,22,bad,good,good,okay,okay,good,bad
-salt_river_voortrekker_bromwell,salt_river,Voortrekker,Bromwell,"-33.92787, 18.46099",-33.92787,18.46099,11,43,bad,bad,good,bad,okay,good,good
-salt_river_albert_junction,salt_river,Albert,Junction,"-33.92894, 18.46215",-33.92894,18.46215,2,2,good,good,okay,bad,okay,good,okay
-observatory_liesbeek_hartleyvale,observatory,Liesbeek,Hartleyvale,"-33.93821, 18.47641",-33.93821,18.47641,2,2,good,good,good,okay,okay,okay,okay
-observatory_n2_liesbeek,observatory,N2,Liesbeek,"-33.94367, 18.47669",-33.94367,18.47669,53,17,bad,good,good,bad,okay,good,good
+id,suburb,crossingStreet,nearbyStreets,LatLng,lat,lng,overallRating,waitTime1,waitTime2,responsivenessRating,shortWaitTime,buttonsWork,crossingTime,safetyRating,trafficCalming,visibility,signage,accessibility
+woodstock_albert_barron,woodstock,Albert,Barron,"-33.9263, 18.44278",-33.9263,18.44278,bad,45,32,bad,bad,good,good,bad,bad,okay,good,good
+woodstock_albert_station,woodstock,Albert,Station,"-33.92644, 18.44617",-33.92644,18.44617,okay,2,4,good,good,good,good,bad,bad,good,good,good
+woodstock _sir_lowry_pine,woodstock ,Sir Lowry,Pine,"-33.92859, 18.44552",-33.92859,18.44552,bad,22,33,bad,bad,good,good,bad,okay,good,bad,bad
+woodstock_sir_lowry_barron,woodstock,Sir Lowry,Barron,"-33.92792, 18.44221",-33.92792,18.44221,bad,10,12,bad,okay,good,bad,bad,bad,okay,bad,bad
+woodstock_sir_lowry_cavendish,woodstock,Sir Lowry,Cavendish,"-33.9292, 18.44812",-33.9292,18.44812,bad,38,7,bad,bad,good,okay,bad,bad,okay,okay,good
+woodstock_sir_lowry_dublin,woodstock,Sir Lowry,Dublin,"-33.93013, 18.45194",-33.93013,18.45194,okay,24,33,bad,bad,bad,good,okay,good,okay,good,okay
+salt_river_station_regent,salt_river,Station,Regent,"-33.93014, 18.45698",-33.93014,18.45698,okay,1,1,good,good,good,good,bad,bad,okay,good,good
+woodstock_albert_treaty,woodstock,Albert,Treaty,"-33.9269, 18.45076",-33.9269,18.45076,bad,17,24,bad,bad,good,bad,bad,bad,bad,good,good
+woodstock_albert_dublin,woodstock,Albert,Dublin,"-33.92719, 18.45314",-33.92719,18.45314,bad,42,3,bad,bad,good,okay,bad,okay,okay,bad,okay
+salt_river_albert_greatmore,salt_river,Albert,Greatmore,"-33.92775, 18.45733",-33.92775,18.45733,okay,20,16,bad,bad,good,bad,okay,good,okay,okay,okay
+salt_river_salt_river_regent,salt_river,Salt River,Regent,"-33.93014, 18.45698",-33.93014,18.45698,bad,30,54,bad,bad,good,bad,bad,bad,bad,good,good
+salt_river_durham_addison,salt_river,Durham,Addison,"-33.93139, 18.46002",-33.93139,18.46002,bad,42,22,bad,bad,good,good,bad,okay,okay,good,bad
+salt_river_voortrekker_bromwell,salt_river,Voortrekker,Bromwell,"-33.92787, 18.46099",-33.92787,18.46099,bad,11,43,bad,bad,bad,good,bad,bad,okay,good,good
+salt_river_albert_junction,salt_river,Albert,Junction,"-33.92894, 18.46215",-33.92894,18.46215,okay,2,2,okay,good,good,okay,bad,bad,okay,good,okay
+observatory_liesbeek_hartleyvale,observatory,Liesbeek,Hartleyvale,"-33.93821, 18.47641",-33.93821,18.47641,okay,2,2,good,good,good,good,okay,okay,okay,okay,okay
+observatory_n2_liesbeek,observatory,N2,Liesbeek,"-33.94367, 18.47669",-33.94367,18.47669,bad,53,17,bad,bad,good,good,bad,bad,okay,good,good

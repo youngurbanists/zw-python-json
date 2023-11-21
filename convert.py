@@ -50,6 +50,7 @@ class Crossing(BaseModel):
     id: str
     humanReadableLocation: HumanReadableLocation
     coordinates: Coordinates
+    overallRating: str
     responsiveness: Responsiveness
     safety: Safety
     photoUrls: List[str]
@@ -110,8 +111,9 @@ def read_crossings_from_csv(csv_path) -> List[Crossing]:
                         "latitude": row["lat"],
                         "longitude": row["lng"],
                     },
+                    "overallRating": row["overallRating"],
                     "responsiveness": Responsiveness(**{
-                        "rating": row["shortWaitTime"],
+                        "rating": row["responsivenessRating"],
                         "categories": [
                             {
                                 "name": "Short Wait Time",
@@ -131,7 +133,7 @@ def read_crossings_from_csv(csv_path) -> List[Crossing]:
                         ],
                     }),
                     "safety": Safety(**{
-                        "rating": row["trafficCalming"],
+                        "rating": row["safetyRating"],
                         "categories": [
                             {
                                 "name": "Traffic Calming",
