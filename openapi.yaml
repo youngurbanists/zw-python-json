@@ -144,6 +144,10 @@ components:
                 type: string
         coordinates:
           $ref: '#/components/schemas/Coordinates'
+        overallRating:
+          type: string
+          enum: [good, okay, bad]
+          example: okay
         responsiveness:
           type: object
           required:
