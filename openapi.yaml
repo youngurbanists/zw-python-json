@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: '1'
+  version: '1.2'
   title: ZeroWait Static Backend Data
   description: Get usability and safety details for pedestrian crossings in Cape Town
 paths:
@@ -132,6 +132,10 @@ components:
         humanReadableLocation:
           type: object
           properties:
+            summary:
+              type: string
+              example: "Cnr. Lansdowne & St Thomas Rd"
+              description: The text that can be shown to a user to describe the crossing location, excludes suburb
             suburb:
               type: string
               example: Claremont
@@ -145,9 +149,36 @@ components:
         coordinates:
           $ref: '#/components/schemas/Coordinates'
         overallRating:
+          deprecated: true
+          description: Rather use the rating in the summary, these should be the same value
           type: string
           enum: [good, okay, bad]
           example: okay
+        summary:
+          type: object
+          required:
+            - rating
+            - categories
+          properties:
+            rating:
+              type: string
+              enum: [good, okay, bad]
+              description: Maps to Safe Crossing, Dangerous Crossing and Deadly Crossing
+              example: okay
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Category'
+              minItems: 1
+              maxItems: 6
+            score:
+              deprecated: true
+              type: integer
+              minimum: 0
+            maximumScore:
+              deprecated: true
+              type: integer
+              example: 100
         responsiveness:
           type: object
           required:

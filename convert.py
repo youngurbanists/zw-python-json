@@ -33,15 +33,12 @@ class Suburb(BaseModel):
     boundingBox: BoundingBox
 
 class HumanReadableLocation(BaseModel):
+    summary: str
     suburb: str
     crossingStreet: str
     nearbyStreets: List[str]
 
-class Safety(BaseModel):
-    rating: str
-    categories: List[Category]
-
-class Responsiveness(BaseModel):
+class CategoryGroup(BaseModel):
     rating: str
     categories: List[Category]
 
@@ -51,8 +48,9 @@ class Crossing(BaseModel):
     humanReadableLocation: HumanReadableLocation
     coordinates: Coordinates
     overallRating: str
-    responsiveness: Responsiveness
-    safety: Safety
+    summary: CategoryGroup
+    responsiveness: CategoryGroup
+    safety: CategoryGroup
     photoUrls: List[str]
 
 def read_suburbs_from_csv(csv_path) -> List[Suburb]:
@@ -90,6 +88,14 @@ def read_suburbs_from_csv(csv_path) -> List[Suburb]:
 
     return suburbs
 
+def human_readable_crossing_location_summary(crossing_street, nearby_streets):
+    if len(nearby_streets) == 0:
+        return crossing_street
+    elif len(nearby_streets) == 1:
+        return f'{crossing_street}, near {nearby_streets[0]}'
+    else:
+        return f'{crossing_street}, between {" and ".join(nearby_streets)}'
+
 def read_crossings_from_csv(csv_path) -> List[Crossing]:
     # Create a list to store Crossing instances
     crossings = []
@@ -103,6 +109,7 @@ def read_crossings_from_csv(csv_path) -> List[Crossing]:
                 crossing_data = {
                     "id": row["id"],
                     "humanReadableLocation": HumanReadableLocation(**{
+                        "summary": human_readable_crossing_location_summary(row["crossingStreet"], row["nearbyStreets"].split(",")),
                         "suburb": row["suburb"],
                         "crossingStreet": row["crossingStreet"],
                         "nearbyStreets": [street.strip() for street in row["nearbyStreets"].split(",")]
@@ -112,7 +119,37 @@ def read_crossings_from_csv(csv_path) -> List[Crossing]:
                         "longitude": row["lng"],
                     },
                     "overallRating": row["overallRating"],
-                    "responsiveness": Responsiveness(**{
+                    "summary": CategoryGroup(**{
+                        "rating": row["overallRating"],
+                        "categories": [
+                            {
+                                "name": "Short Wait Time",
+                                "longDescription": "Does the crossing respond quickly after a pedestrian pushes the button, or are pedestrians sometimes required to wait for ages",
+                                "rating": row["shortWaitTime"],
+                            },
+                            {
+                                "name": "Crossing Time",
+                                "longDescription": "Do pedestrians have enough time to cross the entire roadway comfortably",
+                                "rating": row["crossingTime"],
+                            },
+                            {
+                                "name": "Traffic Calming",
+                                "longDescription": "Is there physical infrastructure which encourages cars to slow down. Speed bumps, road narrowings, chicanes, etc.",
+                                "rating": row["trafficCalming"]
+                            },
+                            {
+                                "name": "Signage",
+                                "longDescription": "Are there signs and paint warning motorists of the pedestrian crossing",
+                                "rating": row["signage"],
+                            },
+                            {
+                                "name": "Accessibility",
+                                "longDescription": "Is it easy for everyone to cross here. Curb cuts, tactile paving, audible buttons.",
+                                "rating": row["accessibility"],
+                            },
+                        ],
+                    }),
+                    "responsiveness": CategoryGroup(**{
                         "rating": row["responsivenessRating"],
                         "categories": [
                             {
@@ -132,7 +169,7 @@ def read_crossings_from_csv(csv_path) -> List[Crossing]:
                             },
                         ],
                     }),
-                    "safety": Safety(**{
+                    "safety": CategoryGroup(**{
                         "rating": row["safetyRating"],
                         "categories": [
                             {
@@ -151,7 +188,7 @@ def read_crossings_from_csv(csv_path) -> List[Crossing]:
                                 "rating": row["signage"],
                             },
                             {
-                                "name": "accessibility",
+                                "name": "Accessibility",
                                 "longDescription": "Is it easy for everyone to cross here. Curb cuts, tactile paving, audible buttons.",
                                 "rating": row["accessibility"],
                             },
