@@ -123,14 +123,19 @@ components:
       required:
         - id
         - coordinates
-        - responsiveness
-        - safety
+        - humanReadableLocation
+        - summary
       properties:
         id:
           type: string
           example: claremont_protea_mark
         humanReadableLocation:
           type: object
+          required:
+            - summary
+            - suburb
+            - crossingStreet
+            - nearbyStreet
           properties:
             summary:
               type: string
